@@ -8,7 +8,6 @@ Shows a random image from safebooru in a buffer within Emacs.
 
   #+begin_src emacs-lisp
     (use-package anisearch
-      :ensure t
       :quelpa (anisearch :fetcher github :repo "b-coimbra/anisearch.el")
       :custom
       (setq anisearch-limit 10)       ; Number of images to fetch. Default 20
