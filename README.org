@@ -1,0 +1,28 @@
+#+TITLE: anisearch.el
+
+Shows a random image from safebooru in a buffer within Emacs.
+
+* Installation
+
+  Using quelpa:
+
+  #+begin_src emacs-lisp
+    (use-package anisearch
+      :ensure t
+      :quelpa (anisearch :fetcher github :repo "b-coimbra/anisearch.el")
+      :custom
+      (setq anisearch-limit 10)       ; Number of images to fetch. Default 20
+      (setq anisearch-tags "nanachi") ; Tags to search with when calling "anisearch"
+      (setq anisearch-save-locally 0) ; Save downloaded files locally. Default nil
+      )
+  #+end_src
+
+* Usage
+
+  - Call =M-x anisearch= to search with the default tag (=anisearch-tags=).
+  - Call =M-x anisearch-tag= to search with a specific tag.
+
+* Dependencies
+
+  - [[https://github.com/tkf/emacs-request][request.el]]
+  - wget
