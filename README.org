@@ -12,7 +12,7 @@ Shows a random image from safebooru in a buffer within Emacs.
       :custom
       (setq anisearch-limit 10)       ; Number of images to fetch. Default 20
       (setq anisearch-tags "nanachi") ; Tags to search with when calling "anisearch"
-      (setq anisearch-save-locally 0) ; Save downloaded files locally. Default nil
+      (setq anisearch-save-locally) ; Save downloaded files locally. Default nil
       )
   #+end_src
 

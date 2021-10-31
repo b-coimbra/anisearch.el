@@ -20,7 +20,7 @@
   "Tags to search with."
   :type 'string :group 'anisearch)
 
-(defcustom anisearch-save-locally 0
+(defcustom anisearch-save-locally nil
   "Whether to save downloaded images locally or not."
   :type 'boolean :group 'anisearch)
 
@@ -34,9 +34,9 @@
 
 ;; Helper routines
 
-(defun anisearch--get-random-image (results)
-  "Get a random image from a list of RESULTS."
-  (cdr (assoc 'file_url (car (list (aref results (random anisearch-limit)))))))
+(defun anisearch--get-nth-image (nth)
+  "Get the NTH image from the list of results."
+  (cdr (assoc 'file_url (car (list (aref anisearch--results nth))))))
 
 (defun anisearch--get ()
   "Make a GET request to set the results."
@@ -56,8 +56,13 @@
       (anisearch--get)))
 
 (defun anisearch--save-image (url)
-  "Show an image from a URL in a separate buffer. Save temporary FILENAME."
-  (shell-command (concat "wget -P downloads/ " url)))
+  "Save temporary FILENAME from URL."
+  (shell-command (concat "wget -P anisearch-downloads/ " url)))
+
+(defun anisearch--save-all ()
+  "Download all images from the list of results."
+  (dotimes (i (length anisearch--results))
+    (anisearch--save-image (anisearch--get-nth-image i))))
 
 ;; Commands
 
@@ -68,7 +73,7 @@
   (if (eq (length anisearch--results) 0)
       (message "Anisearch: Unable to search for tag %s" anisearch-tags)
     (let (url)
-      (setq url (anisearch--get-random-image anisearch--results))
+      (setq url (anisearch--get-nth-image (random anisearch-limit)))
       (when anisearch-save-locally
         (anisearch--save-image url))
       (browse-url-emacs url))))
@@ -80,6 +85,11 @@
   (message "Searching for %s" anisearch-tags)
   (anisearch-clear)
   (anisearch))
+
+(defun anisearch-save-all ()
+  "Downloads all images."
+  (interactive)
+  (anisearch--save-all))
 
 (defun anisearch-clear ()
   "Clear the list of loaded images."
