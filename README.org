@@ -18,8 +18,10 @@ Shows a random image from safebooru in a buffer within Emacs.
 
 * Usage
 
-  - Call =M-x anisearch= to search with the default tag (=anisearch-tags=).
-  - Call =M-x anisearch-tag= to search with a specific tag.
+  - =M-x anisearch= to search with the default tag (=anisearch-tags=).
+  - =M-x anisearch-tag= to search with a specific tag.
+  - =M-x anisearch-clear= to clear the list of loaded images.
+  - =M-x anisearch-save-all= to download all images into the =anisearch-downloads= folder.
 
 * Dependencies
 
